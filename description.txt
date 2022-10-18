@@ -1,0 +1,16 @@
+Here's the evaluation prompt to share with your dev candidates:
+Build a web app using React and deploy it on www.netlify.com, using their free package.
+This app should calculate the distance between two United States airports in nautical
+miles, using auto-complete for the airport fields. All United States Airports should 
+be searchable by name or 3 digit code. 
+
+Bonus: plot the route on Google maps. 
+Note: please choose the API you think best fits your solution. Once completed,
+please send us the Netlify URL of the app and a zip of the source code.
+
+You will be evaluated based on:
+* The structure of your React components, HTML and CSS structure
+* Use of Material UI components
+* The cleanliness (or whatever else you care about) of your visual design
+* Appropriate use of TypeScript
+* Being mobile friendly
