@@ -2,7 +2,7 @@ import { Autocomplete, TextField } from '@mui/material';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 
-type Airport = {
+interface Airport {
   name: string;
   city: string;
   code?: string;
@@ -10,7 +10,7 @@ type Airport = {
   latitude: number;
   longitude: number;
   label: string;
-};
+}
 
 interface AirportSelectProps {
   airport: Airport;
