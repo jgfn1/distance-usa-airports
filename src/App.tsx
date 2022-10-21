@@ -3,12 +3,20 @@ import { Button } from '@mui/material';
 import AirportSelect, { Airport } from './components/AirportSelect';
 
 function App(): JSX.Element {
-  const [firstAirport, setFirstAirport] = useState({
+  const [firstAirport, setFirstAirport] = useState<Airport>({
     label: 'Choose airport',
-  } as Airport);
-  const [secondAirport, setSecondAirport] = useState({
+    name: '',
+    city: '',
+    latitude: 0,
+    longitude: 0,
+  });
+  const [secondAirport, setSecondAirport] = useState<Airport>({
     label: 'Choose airport',
-  } as Airport);
+    name: '',
+    city: '',
+    latitude: 0,
+    longitude: 0,
+  });
   const [distance, setDistance] = useState(0);
 
   const calculateDistanceInKmFromCoordinates = (

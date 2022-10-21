@@ -24,10 +24,10 @@ const AirportSelect = ({
   setAirport,
   id,
   label,
-}: AirportSelectProps) => {
+}: AirportSelectProps): JSX.Element => {
   const [airports, setAirports] = useState([] as Airport[]);
 
-  function datToArray(text: string) {
+  function datToArray(text: string): Airport[] {
     const lines = text.split(/\n/); // split on \n
     return lines
       .filter(line => line.includes('United States'))
@@ -46,7 +46,7 @@ const AirportSelect = ({
           latitude: parseFloat(latitude),
           longitude: parseFloat(longitude),
           label: code !== '\\N' ? `${name} - ${code}` : `${name} - ${icaoCode}`,
-        } as Airport;
+        };
       });
   }
 
@@ -59,7 +59,8 @@ const AirportSelect = ({
         const airportsArray = datToArray(response.data);
         setAirports(airportsArray);
         setAirport(airportsArray[0]);
-      });
+      })
+      .catch(error => console.log(error));
   }, []);
 
   return (
@@ -67,7 +68,7 @@ const AirportSelect = ({
       <Autocomplete
         value={airport}
         onChange={(event: any, newValue: Airport | null) => {
-          setAirport(newValue || airports[0]);
+          setAirport(newValue ?? airports[0]);
         }}
         disablePortal
         id={id}
