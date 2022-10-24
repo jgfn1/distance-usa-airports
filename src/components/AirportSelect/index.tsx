@@ -73,7 +73,6 @@ const AirportSelect = ({
         disablePortal
         id={id}
         options={airports}
-        sx={{ width: 400 }}
         renderInput={params => <TextField {...params} label={label} />}
       ></Autocomplete>
     </>

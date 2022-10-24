@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Button } from '@mui/material';
+import { Button, Grid, Typography } from '@mui/material';
 import AirportSelect, { Airport } from './components/AirportSelect';
+import { Container } from '@mui/system';
 
 function App(): JSX.Element {
   const [firstAirport, setFirstAirport] = useState<Airport>({
@@ -51,12 +52,6 @@ function App(): JSX.Element {
   };
 
   const onHandleCalculate = (): void => {
-    console.log(
-      'SELECTED AIRPORTS:\n',
-      firstAirport.label,
-      '\n',
-      secondAirport.label
-    );
     setDistance(
       calculateDistanceInKmFromCoordinates(
         firstAirport.latitude,
@@ -69,28 +64,66 @@ function App(): JSX.Element {
 
   return (
     <>
-      <h1>Insert USA Airports to Calculate Distance</h1>
-      <AirportSelect
-        airport={firstAirport}
-        setAirport={setFirstAirport}
-        id="first-airport-input"
-        label="1st Airport"
-      ></AirportSelect>
-      <br />
-      <AirportSelect
-        airport={secondAirport}
-        setAirport={setSecondAirport}
-        id="second-airport-input"
-        label="2nd Airport"
-      ></AirportSelect>
-      <br />
-      <Button variant="contained" onClick={onHandleCalculate}>
-        Calculate
-      </Button>
-      <br />
-      <br />
-      <label>Straight Line Distance:</label>
-      <span> {distance.toFixed(2)} Nautical Miles</span>
+      <Container
+        style={{
+          margin: 0,
+          position: 'absolute',
+          top: '30%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+        }}
+      >
+        <Grid
+          container
+          direction="column"
+          justifyContent="center"
+          alignItems="center"
+          spacing={4}
+        >
+          <Grid item>
+            <Typography variant="h4" align="center">
+              Insert Airports to Calculate Distance
+            </Typography>
+          </Grid>
+
+          <Grid
+            item
+            container
+            direction="row"
+            justifyContent="center"
+            alignItems="space-around"
+            spacing={2}
+          >
+            <Grid item xs={8} md={5} lg={5} xl={4}>
+              <AirportSelect
+                airport={firstAirport}
+                setAirport={setFirstAirport}
+                id="first-airport-input"
+                label="1st Airport"
+              ></AirportSelect>
+            </Grid>
+            <Grid item xs={8} md={5} lg={5} xl={4}>
+              <AirportSelect
+                airport={secondAirport}
+                setAirport={setSecondAirport}
+                id="second-airport-input"
+                label="2nd Airport"
+              ></AirportSelect>
+            </Grid>
+          </Grid>
+
+          <Grid item>
+            <Button variant="contained" onClick={onHandleCalculate}>
+              Calculate
+            </Button>
+          </Grid>
+
+          <Grid item>
+            <label>Straight Line Distance:</label>
+            <span> {distance.toFixed(2)} Nautical Miles</span>
+          </Grid>
+        </Grid>
+      </Container>
     </>
   );
 }
