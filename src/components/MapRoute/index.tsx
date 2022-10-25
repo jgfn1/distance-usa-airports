@@ -5,6 +5,7 @@ import {
   DirectionsService,
   DirectionsRenderer,
 } from '@react-google-maps/api';
+import { Alert } from '@mui/material';
 
 interface mapProps {
   destinationProp: string;
@@ -32,17 +33,28 @@ function Map({ destinationProp, originProp }: mapProps): JSX.Element {
   const center = useMemo(() => ({ lat: 44, lng: -80 }), []);
   const [directionsResponse, setDirections] =
     useState<google.maps.DirectionsResult | null>(null);
+  const [routeNotFound, setRouteNotFound] = useState(false);
 
   function directionsCallback(
     result: google.maps.DirectionsResult | null,
     status: google.maps.DirectionsStatus
   ): void {
     console.log(result, status);
-    if (status === google.maps.DirectionsStatus.OK) setDirections(result);
+    if (status === google.maps.DirectionsStatus.OK) {
+      setDirections(result);
+      setRouteNotFound(false);
+    } else if (
+      status === google.maps.DirectionsStatus.ZERO_RESULTS ||
+      status === google.maps.DirectionsStatus.NOT_FOUND
+    ) {
+      setDirections(null);
+      setRouteNotFound(true);
+    }
   }
 
   return (
     <>
+      {routeNotFound && <Alert severity="error">Route not found!</Alert>}
       <GoogleMap
         id="map-google"
         zoom={10}
