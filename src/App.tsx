@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Button, Container, Grid, Paper, Typography } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import { Container, Grid, Paper, Typography } from '@mui/material';
 import AirportSelect, { Airport } from './components/AirportSelect';
 import calculateDistanceInNmFromCoordinates from './utils/calculateDistanceInNmFromCoordinates';
 import MapRoute from './components/MapRoute';
@@ -16,7 +16,7 @@ function App(): JSX.Element {
   const [secondAirport, setSecondAirport] = useState<Airport>(chooseAirport);
   const [distance, setDistance] = useState(0);
 
-  const onHandleCalculate = (): void => {
+  useEffect(() => {
     setDistance(
       calculateDistanceInNmFromCoordinates(
         firstAirport.latitude,
@@ -25,7 +25,7 @@ function App(): JSX.Element {
         secondAirport.longitude
       )
     );
-  };
+  }, [firstAirport, secondAirport]);
 
   return (
     <>
@@ -77,12 +77,6 @@ function App(): JSX.Element {
                   label="2nd Airport"
                 ></AirportSelect>
               </Grid>
-            </Grid>
-
-            <Grid item>
-              <Button variant="contained" onClick={onHandleCalculate}>
-                Calculate Distance
-              </Button>
             </Grid>
 
             <Grid item>
