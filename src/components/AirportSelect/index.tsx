@@ -45,7 +45,10 @@ const AirportSelect = ({
           city,
           latitude: parseFloat(latitude),
           longitude: parseFloat(longitude),
-          label: code !== '\\N' ? `${name} - ${code}` : `${name} - ${icaoCode}`,
+          label:
+            code !== '\\N'
+              ? `${city} - ${name} (${code})`
+              : `${city} - ${name} (${icaoCode})`,
         };
       });
   }
@@ -58,7 +61,6 @@ const AirportSelect = ({
       .then(response => {
         const airportsArray = datToArray(response.data);
         setAirports(airportsArray);
-        setAirport(airportsArray[id === 'first-airport-input' ? 5 : 6]);
       })
       .catch(error => console.log(error));
   }, []);
@@ -67,6 +69,7 @@ const AirportSelect = ({
     <>
       <Autocomplete
         value={airport}
+        size="small"
         onChange={(event: any, newValue: Airport | null) => {
           setAirport(newValue ?? airports[0]);
         }}

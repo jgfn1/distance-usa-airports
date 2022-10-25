@@ -5,7 +5,7 @@ import {
   DirectionsService,
   DirectionsRenderer,
 } from '@react-google-maps/api';
-import { Alert } from '@mui/material';
+import { Alert, useMediaQuery, useTheme } from '@mui/material';
 
 interface mapProps {
   destinationProp: string;
@@ -34,6 +34,7 @@ function Map({ destinationProp, originProp }: mapProps): JSX.Element {
   const [directionsResponse, setDirections] =
     useState<google.maps.DirectionsResult | null>(null);
   const [routeNotFound, setRouteNotFound] = useState(false);
+  const theme = useTheme();
 
   function directionsCallback(
     result: google.maps.DirectionsResult | null,
@@ -54,12 +55,17 @@ function Map({ destinationProp, originProp }: mapProps): JSX.Element {
 
   return (
     <>
-      {routeNotFound && <Alert severity="error">Route not found!</Alert>}
+      {originProp !== '' && destinationProp !== '' && routeNotFound && (
+        <Alert severity="error">Route not found!</Alert>
+      )}
       <GoogleMap
         id="map-google"
-        zoom={10}
+        zoom={20}
         center={center}
-        mapContainerStyle={{ width: '100%', height: '45vh' }}
+        mapContainerStyle={{
+          width: '100%',
+          height: useMediaQuery(theme.breakpoints.down('sm')) ? '40vh' : '60vh',
+        }}
       >
         <DirectionsService
           options={{
