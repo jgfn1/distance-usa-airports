@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import {
   GoogleMap,
   useLoadScript,
@@ -17,10 +17,6 @@ const MapRoute = ({ destinationProp, originProp }: mapProps): JSX.Element => {
     googleMapsApiKey: 'AIzaSyBcEkM5j2QL31AZ5iI1xt515jctY4JEsZs',
   });
 
-  useEffect(() => {
-    console.log('RENDERED!');
-  });
-
   if (!isLoaded) return <div>Loading...</div>;
   return (
     <>
@@ -30,7 +26,7 @@ const MapRoute = ({ destinationProp, originProp }: mapProps): JSX.Element => {
 };
 
 function Map({ destinationProp, originProp }: mapProps): JSX.Element {
-  const center = useMemo(() => ({ lat: 44, lng: -80 }), []);
+  const center = useMemo(() => ({ lat: 41.6, lng: -93.61 }), []);
   const [directionsResponse, setDirections] =
     useState<google.maps.DirectionsResult | null>(null);
   const [routeNotFound, setRouteNotFound] = useState(false);
@@ -60,7 +56,7 @@ function Map({ destinationProp, originProp }: mapProps): JSX.Element {
       )}
       <GoogleMap
         id="map-google"
-        zoom={20}
+        zoom={3}
         center={center}
         mapContainerStyle={{
           width: '100%',

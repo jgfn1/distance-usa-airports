@@ -17,6 +17,7 @@ interface AirportSelectProps {
   setAirport: Function;
   id: string;
   label: string;
+  defaultAirport: Airport;
 }
 
 const AirportSelect = ({
@@ -24,8 +25,9 @@ const AirportSelect = ({
   setAirport,
   id,
   label,
+  defaultAirport,
 }: AirportSelectProps): JSX.Element => {
-  const [airports, setAirports] = useState([] as Airport[]);
+  const [airports, setAirports] = useState([defaultAirport]);
 
   function datToArray(text: string): Airport[] {
     const lines = text.split(/\n/); // split on \n
@@ -60,7 +62,7 @@ const AirportSelect = ({
       )
       .then(response => {
         const airportsArray = datToArray(response.data);
-        setAirports(airportsArray);
+        setAirports([...airports, ...airportsArray]);
       })
       .catch(error => console.log(error));
   }, []);
@@ -71,8 +73,9 @@ const AirportSelect = ({
         value={airport}
         size="small"
         onChange={(event: any, newValue: Airport | null) => {
-          setAirport(newValue ?? airports[0]);
+          setAirport(newValue ?? defaultAirport);
         }}
+        isOptionEqualToValue={(option, value) => option.label === value.label}
         disablePortal
         id={id}
         options={airports}

@@ -5,15 +5,20 @@ import calculateDistanceInNmFromCoordinates from './utils/calculateDistanceInNmF
 import MapRoute from './components/MapRoute';
 
 function App(): JSX.Element {
-  const chooseAirport = {
+  const selectAirport = {
     label: 'Select airport',
     name: '',
     city: '',
     latitude: 0,
     longitude: 0,
   };
-  const [firstAirport, setFirstAirport] = useState<Airport>(chooseAirport);
-  const [secondAirport, setSecondAirport] = useState<Airport>(chooseAirport);
+
+  const [firstAirport, setFirstAirport] = useState<Airport>({
+    ...selectAirport,
+  });
+  const [secondAirport, setSecondAirport] = useState<Airport>({
+    ...selectAirport,
+  });
   const [distance, setDistance] = useState(0);
 
   useEffect(() => {
@@ -76,6 +81,7 @@ function App(): JSX.Element {
                     setAirport={setFirstAirport}
                     id="first-airport-input"
                     label="1st Airport"
+                    defaultAirport={selectAirport}
                   ></AirportSelect>
                 </Grid>
                 <Grid item xs={8} sm={5} md={5} lg={5} xl={4}>
@@ -84,6 +90,7 @@ function App(): JSX.Element {
                     setAirport={setSecondAirport}
                     id="second-airport-input"
                     label="2nd Airport"
+                    defaultAirport={selectAirport}
                   ></AirportSelect>
                 </Grid>
               </Grid>
