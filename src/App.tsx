@@ -3,6 +3,7 @@ import { Button, Paper, Grid, Typography } from '@mui/material';
 import AirportSelect, { Airport } from './components/AirportSelect';
 import { Container } from '@mui/system';
 import calculateDistanceInNmFromCoordinates from './utils/calculateDistanceInNmFromCoordinates';
+import MapRoute from './components/MapRoute';
 
 function App(): JSX.Element {
   const chooseAirport = {
@@ -29,16 +30,20 @@ function App(): JSX.Element {
 
   return (
     <>
+      <MapRoute
+        originProp={firstAirport.name}
+        destinationProp={secondAirport.name}
+      ></MapRoute>
       <Container
         style={{
           margin: 0,
           position: 'absolute',
-          top: '30%',
+          top: '50%',
           left: '50%',
           transform: 'translate(-50%, -50%)',
         }}
       >
-        <Paper elevation={3}>
+        <Paper elevation={10}>
           <Grid
             container
             direction="column"
@@ -89,6 +94,8 @@ function App(): JSX.Element {
                 Straight Line Distance: {distance.toFixed(2)} Nautical Miles
               </Typography>
             </Grid>
+
+            <Grid item></Grid>
           </Grid>
         </Paper>
       </Container>
