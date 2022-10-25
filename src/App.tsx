@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { Button, Paper, Grid, Typography } from '@mui/material';
+import { Button, Container, Grid, Paper, Typography } from '@mui/material';
 import AirportSelect, { Airport } from './components/AirportSelect';
-import { Container } from '@mui/system';
 import calculateDistanceInNmFromCoordinates from './utils/calculateDistanceInNmFromCoordinates';
 import MapRoute from './components/MapRoute';
 
@@ -30,10 +29,6 @@ function App(): JSX.Element {
 
   return (
     <>
-      <MapRoute
-        originProp={firstAirport.name}
-        destinationProp={secondAirport.name}
-      ></MapRoute>
       <Container
         style={{
           margin: 0,
@@ -43,17 +38,18 @@ function App(): JSX.Element {
           transform: 'translate(-50%, -50%)',
         }}
       >
-        <Paper elevation={10}>
+        <Paper elevation={10} sx={{ padding: 4 }}>
           <Grid
             container
             direction="column"
             justifyContent="center"
             alignItems="center"
-            spacing={4}
+            spacing={2}
+            sx={{ pb: 2 }}
           >
             <Grid item>
-              <Typography variant="h4" align="center">
-                Insert Airports to Calculate Distance
+              <Typography variant="h5" align="center">
+                Select Airports
               </Typography>
             </Grid>
 
@@ -65,7 +61,7 @@ function App(): JSX.Element {
               alignItems="space-around"
               spacing={2}
             >
-              <Grid item xs={8} md={5} lg={5} xl={4}>
+              <Grid item xs={8} sm={5} md={5} lg={5} xl={4}>
                 <AirportSelect
                   airport={firstAirport}
                   setAirport={setFirstAirport}
@@ -73,7 +69,7 @@ function App(): JSX.Element {
                   label="1st Airport"
                 ></AirportSelect>
               </Grid>
-              <Grid item xs={8} md={5} lg={5} xl={4}>
+              <Grid item xs={8} sm={5} md={5} lg={5} xl={4}>
                 <AirportSelect
                   airport={secondAirport}
                   setAirport={setSecondAirport}
@@ -85,18 +81,24 @@ function App(): JSX.Element {
 
             <Grid item>
               <Button variant="contained" onClick={onHandleCalculate}>
-                Calculate
+                Calculate Distance
               </Button>
             </Grid>
 
-            <Grid item sx={{ pb: 5 }}>
-              <Typography variant="h5" align="center">
+            <Grid item>
+              <Typography
+                variant="h6"
+                align="center"
+                sx={{ fontWeight: 'normal' }}
+              >
                 Straight Line Distance: {distance.toFixed(2)} Nautical Miles
               </Typography>
             </Grid>
-
-            <Grid item></Grid>
           </Grid>
+          <MapRoute
+            originProp={firstAirport.name}
+            destinationProp={secondAirport.name}
+          ></MapRoute>
         </Paper>
       </Container>
     </>

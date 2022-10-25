@@ -58,7 +58,7 @@ const AirportSelect = ({
       .then(response => {
         const airportsArray = datToArray(response.data);
         setAirports(airportsArray);
-        setAirport(airportsArray[0]);
+        setAirport(airportsArray[id === 'first-airport-input' ? 5 : 6]);
       })
       .catch(error => console.log(error));
   }, []);

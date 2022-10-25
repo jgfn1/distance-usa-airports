@@ -47,7 +47,7 @@ function Map({ destinationProp, originProp }: mapProps): JSX.Element {
         id="map-google"
         zoom={10}
         center={center}
-        mapContainerStyle={{ width: '100%', height: '100vh' }}
+        mapContainerStyle={{ width: '100%', height: '55vh' }}
       >
         <DirectionsService
           options={{
