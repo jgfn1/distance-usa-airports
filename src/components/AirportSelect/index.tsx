@@ -62,7 +62,11 @@ const AirportSelect = ({
       )
       .then(response => {
         const airportsArray = datToArray(response.data);
-        setAirports([...airports, ...airportsArray]);
+        setAirports([
+          ...airports,
+          ...airportsArray.slice(Math.floor(airportsArray.length / 2)),
+          ...airportsArray.slice(0, Math.floor(airportsArray.length / 2)),
+        ]);
       })
       .catch(error => console.log(error));
   }, []);
