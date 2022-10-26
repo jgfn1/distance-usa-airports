@@ -9,8 +9,12 @@ function App(): JSX.Element {
     label: 'Select airport',
     name: '',
     city: '',
-    latitude: 0,
-    longitude: 0,
+    state: '',
+    country_code: 'US',
+    lat: 0,
+    lng: 0,
+    iata_code: '',
+    icao_code: '',
   };
 
   const [firstAirport, setFirstAirport] = useState<Airport>({
@@ -25,10 +29,10 @@ function App(): JSX.Element {
     if (firstAirport.name !== '' && secondAirport.name !== '')
       setDistance(
         calculateDistanceInNmFromCoordinates(
-          firstAirport.latitude,
-          firstAirport.longitude,
-          secondAirport.latitude,
-          secondAirport.longitude
+          firstAirport.lat,
+          firstAirport.lng,
+          secondAirport.lat,
+          secondAirport.lng
         )
       );
   }, [firstAirport, secondAirport]);

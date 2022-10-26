@@ -36,7 +36,6 @@ function Map({ destinationProp, originProp }: mapProps): JSX.Element {
     result: google.maps.DirectionsResult | null,
     status: google.maps.DirectionsStatus
   ): void {
-    console.log(result, status);
     if (status === google.maps.DirectionsStatus.OK) {
       setDirections(result);
       setRouteNotFound(false);

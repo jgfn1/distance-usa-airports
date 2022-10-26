@@ -5,10 +5,12 @@ import React, { useEffect, useState } from 'react';
 interface Airport {
   name: string;
   city: string;
-  code?: string;
-  icaoCode?: string;
-  latitude: number;
-  longitude: number;
+  state: string;
+  country_code: string;
+  iata_code: string;
+  icao_code: string;
+  lat: number;
+  lng: number;
   label: string;
 }
 
@@ -29,44 +31,20 @@ const AirportSelect = ({
 }: AirportSelectProps): JSX.Element => {
   const [airports, setAirports] = useState([defaultAirport]);
 
-  function datToArray(text: string): Airport[] {
-    const lines = text.split(/\n/); // split on \n
-    return lines
-      .filter(line => line.includes('United States'))
-      .map(line => {
-        const {
-          1: name,
-          2: city,
-          4: code,
-          5: icaoCode,
-          6: latitude,
-          7: longitude,
-        } = line.replaceAll('"', '').split(',');
-        return {
-          name,
-          city,
-          latitude: parseFloat(latitude),
-          longitude: parseFloat(longitude),
-          label:
-            code !== '\\N'
-              ? `${city} - ${name} (${code})`
-              : `${city} - ${name} (${icaoCode})`,
-        };
-      });
-  }
-
   useEffect(() => {
     axios
       .get(
-        'https://raw.githubusercontent.com/jpatokal/openflights/master/data/airports.dat'
+        'https://raw.githubusercontent.com/Ricofrede/final-airports/master/finalAirports.json'
       )
       .then(response => {
-        const airportsArray = datToArray(response.data);
-        setAirports([
-          ...airports,
-          ...airportsArray.slice(Math.floor(airportsArray.length / 2)),
-          ...airportsArray.slice(0, Math.floor(airportsArray.length / 2)),
-        ]);
+        let airportsArray = response.data.map((el: Airport) => {
+          return {
+            ...el,
+            label: `${el.name} (${el.iata_code}), ${el.city} - ${el.state}`,
+          };
+        });
+        airportsArray = [...airports, ...airportsArray];
+        setAirports([...airportsArray]);
       })
       .catch(error => console.log(error));
   }, []);
